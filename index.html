@@ -4,8 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./CSS/styles.css" />
+    <!-- Leaflet library -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <!-- end of Leaflet library -->
+    <script defer src="./script.js"></script>
   </head>
   <body>
-    <section></section>
+    <section class="mainView">
+      <section id="map">
+        <section id="menuBurger">
+          <button class="menuBurgerButton">
+            <figure>
+              <img
+                class="menuBurgerIMG"
+                src="https://w7.pngwing.com/pngs/436/707/png-transparent-hamburger-button-computer-icons-menu-menu-food-text-rectangle.png"
+                alt="Burger menu"
+              />
+            </figure>
+          </button>
+          <section class="hidden" id="menuBurgerSpace">
+            <div class="menuBurgerSpaceDiv">
+              <article class="activity activity-1">
+                <div class="inputParent">
+                  <input class="input activityInput" placeholder="Activity" />
+                </div>
+                <div class="inputParent">
+                  <input class="input timeInput" placeholder="Time" />
+                </div>
+
+                <div class="inputParent">
+                  <textarea
+                    name=""
+                    id=""
+                    class="input observationsInput"
+                    placeholder="Observations"
+                    rows="3"
+                  >
+                  </textarea>
+                  <!-- <input
+                    class="input observationsInput"
+                    placeholder="Observations"
+                  /> -->
+                </div>
+              </article>
+              <div class="sendButtonParent">
+                <button class="sendButton">Send</button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section id="whereAmIButton">
+          <button>
+            <figure>
+              <img
+                class="whereAmIButtonIMG"
+                src="https://labrigadedelequipement.fr/cdn/shop/products/eot512a65_2_400x400.jpg?v=1655919358"
+                alt="Find me in the map"
+              />
+            </figure>
+          </button>
+        </section>
+      </section>
+    </section>
   </body>
 </html>
