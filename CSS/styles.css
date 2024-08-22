@@ -63,6 +63,8 @@ html {
   background-color: #fdf8ca;
   border-radius: 2rem;
   opacity: 0.8;
+  max-height: 70%;
+  overflow: auto;
 }
 
 .hidden {
@@ -72,6 +74,7 @@ html {
 /* Activities input */
 #menuBurger #menuBurgerSpace .menuBurgerSpaceDiv {
   height: 100%;
+  padding-bottom: 4rem;
   /* position: relative; */
 }
 
@@ -80,6 +83,11 @@ html {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  border: 0.1rem solid #d1c59f;
+  border-top-width: 0rem;
+  border-bottom-width: 0rem;
+  border-radius: 1rem;
+  padding: 0rem 0.4rem;
 }
 
 #menuBurger #menuBurgerSpace .inputParent {
@@ -91,12 +99,18 @@ html {
   max-width: 45%;
   margin-right: 1rem;
   text-align: center;
+  border: 0.1rem solid #bfa044;
+  border-radius: 1rem;
 }
 
 #menuBurger #menuBurgerSpace .observationsInput {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   max-width: 80%;
+  width: 80%;
   text-align: justify;
+  border: 0.1rem solid #bfa044;
+  border-radius: 1rem;
+  margin-right: 0rem;
 }
 
 #menuBurger #menuBurgerSpace textarea::placeholder {
