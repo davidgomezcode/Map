@@ -1,6 +1,7 @@
 "use strict";
 //Selectors:
-const menuBurger = document.querySelector("#menuBurger .hidden");
+const menuBurgerIMG = document.querySelector(".menuBurgerIMG");
+const menuBurgerSpace = document.querySelector("#menuBurgerSpace");
 const sendButtonParent = document.querySelector(".sendButtonParent");
 
 // Global variables
@@ -34,6 +35,7 @@ let mapReal = L.tileLayer(
 
 //Functions
 //Function - insertion of new activity:
+// variable that contains the structure of the new activity - ON CONSTRUCTION.
 const html = `<article class="activity activity-1">
                 <div class="inputParent">
                   <input class="input activityInput" placeholder="Activity" />
@@ -52,7 +54,7 @@ const html = `<article class="activity activity-1">
                   >
                   </textarea>
                 </div>
-              </article>`; // variable that contains the structure of the new activity - ON CONSTRUCTION.
+              </article>`;
 
 //Function of map and geolocation of user:
 navigator.geolocation.getCurrentPosition(function (position) {
@@ -89,17 +91,10 @@ navigator.geolocation.getCurrentPosition(function (position) {
 
   //Event listener to difFerentiate between the clicks over tu whereAmIButtonIMG and over the rest of the map:
   document.addEventListener("click", function (e) {
-    // console.log(e.target);
-
     if (e.target.classList.contains("whereAmIButtonIMG")) {
       L.marker(coords).addTo(map);
       map.locate({ setView: true });
-      // map.locate({ setView: true, maxZoom: 30 }); // Max zoom when the view is set to the user location - it´s not working.
-      // L.marker(coords, { icon: whereAmIIcon }).addTo(map); //
-    } else if (e.target.classList.contains("menuBurgerIMG")) {
-      menuBurger.classList.toggle("hidden"); // we toggle the space where the activities are going to be listed
     } else if (e.target.classList.contains("sendButton")) {
-      console.log("the send button click is heard");
       sendButtonParent.insertAdjacentHTML("beforebegin", html);
     } else if (
       //if the click is not on
@@ -109,12 +104,56 @@ navigator.geolocation.getCurrentPosition(function (position) {
       !e.target.classList.contains("activityInput") && // the input
       !e.target.classList.contains("input") && // the activity
       !e.target.classList.contains("activity") && //the burger menu space
-      !e.target.classList.contains("sendButton") && // It is not the send p¿button
+      !e.target.classList.contains("sendButton") &&
+      !e.target.classList.contains("menuBurgerSpaceDiv") && // It is not the send p¿button
       e.target.id !== "menuBurgerSpace"
     ) {
       // Then, create a marker where the user clicked.
       let { lat, lng } = mapEvent.latlng;
       L.marker([lat, lng]).addTo(map);
     }
+    // else if (e.target.classList.contains("menuBurgerIMG")) {
+    //   menuBurgerSpace.classList.toggle("hidden"); // we toggle the space where the activities are going to be listed
+
+    //   console.log(!menuBurgerSpace.classList.contains("hidden"));
+    //   //We listens if the user is in or out the menu burger
+    //   if (!menuBurgerSpace.classList.contains("hidden")) {
+    //     console.log(e.target);
+
+    //     menuBurgerSpace.addEventListener("click", function () {
+    //       console.log("We are clicking the burger menu");
+    //     });
+
+    //     // menuBurgerSpace.addEventListener("mouseenter", function () {
+    //     //   console.log("the mouse entered in the burger menu");
+    //     // });
+    //     // menuBurgerSpace.addEventListener("mouseleave", function () {
+    //     //   console.log("the mouse left in the burger menu");
+    //     // });
+    //   }
+    // }
   });
+
+  menuBurgerIMG.addEventListener("click", function () {
+    menuBurgerSpace.classList.toggle("hidden");
+    // menuBurgerSpace.addEventListener("mouseenter", function () {
+    //   console.log("the mouse entered in the burger menu");
+    // });
+
+    // if (!menuBurgerSpace.classList.contains("hidden")) {
+    //   console.log("Burger menu is not hidden");
+
+    //   menuBurgerSpace.addEventListener("click", function () {
+    //     console.log("We are clicking the burger menu");
+    //   });
+
+    //   // menuBurgerSpace.addEventListener("mouseleave", function () {
+    //   //   console.log("the mouse left in the burger menu");
+    //   // });
+    // }
+  });
+
+  // menuBurgerIMG.addEventListener("mouseenter", function () {
+  //   console.log("the mouse entered the burger image");
+  // });
 });
