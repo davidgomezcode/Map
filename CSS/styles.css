@@ -160,3 +160,13 @@ html {
   width: 4rem;
   background-color: #fbf5a7;
 }
+
+/* Related with the  */
+
+.leaflet-popup-content {
+  /* margin: 13px 24px 13px 20px;
+  line-height: 1.3;
+  font-size: 13px; */
+  font-size: 1.2rem;
+  /* min-height: 1px; */
+}
