@@ -6,6 +6,7 @@ const sendButton = document.querySelector(".sendButton");
 const menuBurgerSpaceDivActivities = document.querySelector(
   ".menuBurgerSpaceDivActivities"
 );
+const changeMapStyleIMG = document.querySelector(".changeMapStyleIMG");
 
 const buttonUp = document.querySelector(".buttonUp");
 const buttonDown = document.querySelector(".buttonDown");
@@ -86,16 +87,17 @@ navigator.geolocation.getCurrentPosition(function (position) {
         .openPopup()
     );
   };
-
+  const addToMap = function (mapType) {
+    mapType.addTo(map);
+  };
   //The coords variable is the current location of the user:
   let { latitude, longitude } = position.coords;
   coords = [latitude, longitude];
   //Map variable following instructions of Leaflet:
   let map = L.map("map").setView(coords, 16);
 
-  //Choosing the style of the map tile (two options, real, or drawn):
-  //   mapReal.addTo(map);
-  mapDrawn.addTo(map);
+  //The first style of the map is drawn:
+  addToMap(mapDrawn);
 
   //Always there is a click, the mapEvent is created (is used later avoiding the creation of the marker over the whereAmIButtonIMG):
   map.on("click", function (mapE) {
@@ -156,5 +158,18 @@ navigator.geolocation.getCurrentPosition(function (position) {
       top: 100, // Positive value to scroll down
       behavior: "smooth", // Optional: smooth scrolling
     });
+  });
+  //Change map tile:
+  changeMapStyleIMG.addEventListener("click", function () {
+    if (
+      Object.values(map._layers)[0]._url ===
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    ) {
+      map.removeLayer(mapDrawn);
+      addToMap(mapReal);
+    } else {
+      map.removeLayer(mapReal);
+      addToMap(mapDrawn);
+    }
   });
 });
