@@ -168,7 +168,7 @@ html {
   background-color: #fbf5a7;
 }
 
-/* Related with the  */
+/* Related with the pop ups */
 
 .leaflet-popup-content {
   /* margin: 13px 24px 13px 20px;
@@ -176,4 +176,10 @@ html {
   font-size: 13px; */
   font-size: 1.2rem;
   /* min-height: 1px; */
+}
+
+/* Relatted with the marker of where is the user */
+
+.leaflet-pane.leaflet-marker-pane .currentUserPosition {
+  width: 2rem;
 }

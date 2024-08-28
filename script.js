@@ -80,7 +80,7 @@ navigator.geolocation.getCurrentPosition(function (position) {
           L.popup({
             autoClose: false,
             closeOnClick: false,
-            className: "currentUserPosition",
+            // className: "currentUserPosition",
           })
         )
         .setPopupContent(`Activity`)
@@ -108,7 +108,17 @@ navigator.geolocation.getCurrentPosition(function (position) {
   document.addEventListener("click", function (e) {
     if (e.target.classList.contains("whereAmIButtonIMG")) {
       // if the user clicks the where am i button, then we create a marker with the user coords and locate the viewport on that mark:
-      L.marker(coords).addTo(map);
+      L.marker(coords, {
+        icon: L.icon({
+          iconUrl: "https://i.postimg.cc/0N6HHTMr/blueDot.png",
+          className: `currentUserPosition`,
+        }),
+      })
+        .addTo(map)
+        .bindPopup()
+        .setPopupContent(`You are here!`)
+        .openPopup();
+
       map.locate({ setView: true });
     } else if (e.target.classList.contains("sendButton")) {
       let i = 0; // while we iterate the menuBurgerSpaceDivActivities, we will iterate the markersArray with the variable i.
