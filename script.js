@@ -39,7 +39,10 @@ const createActivity = function () {
       <input class="input activityInput" placeholder="Activity" />
     </div>
     <div class="inputParent">
-      <input class="input timeInput" placeholder="Time" />
+      <input class="input timeInput" 
+      type="number" 
+      placeholder="Minutes" 
+    />
     </div>
 
     <div class="inputParent">
@@ -116,19 +119,28 @@ navigator.geolocation.getCurrentPosition(function (position) {
       })
         .addTo(map)
         .bindPopup()
-        .setPopupContent(`You are here!`)
+        .setPopupContent(
+          `<strong style="font-size: 1.2rem;">You are here!</strong>`
+        )
         .openPopup();
 
-      map.locate({ setView: true });
+      map.locate({ setView: true }); // we set the view to the user current position
+      if (!menuBurgerSpace.classList.contains("hidden")) {
+        //If the burger menu is open, it closes it:
+        openBurgerMenu();
+      }
     } else if (e.target.classList.contains("sendButton")) {
       let i = 0; // while we iterate the menuBurgerSpaceDivActivities, we will iterate the markersArray with the variable i.
       menuBurgerSpaceDivActivities
         .querySelectorAll("article")
         .forEach((article) => {
           if (article.querySelector(".activityInput")?.value !== undefined) {
+            let minutes = article.querySelector(".timeInput")?.value;
             // We take the text of every element in the burger menu and put it in the correspondent marker popup (using the setPopupContent):
             markersArray[i].setPopupContent(
-              `${article.querySelector(".activityInput")?.value}`
+              `<strong style="font-size: 1.2rem;">${
+                article.querySelector(".activityInput")?.value
+              }</strong><br>${minutes} min`
             );
             if (article.querySelector(".activityInput")?.value == "") {
               //if the user erase the content, it returns to "Activity".

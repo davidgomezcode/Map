@@ -129,8 +129,7 @@ html {
   color: black;
 }
 
-/* Activities send button  */
-
+/* Activities save button  */
 #menuBurger .sendButtonParent {
   /* display: flex;
   justify-content: center; */
@@ -139,7 +138,6 @@ html {
   top: 1rem;
   right: 2rem;
 }
-
 #menuBurger .sendButtonParent .sendButton {
   border-radius: 3rem;
   width: 4.5rem;
@@ -150,36 +148,28 @@ html {
   right: 12%;
   opacity: 0.7;
 }
-
-#menuBurger .buttonUp {
+/* Buttons up & down */
+#menuBurger button {
   position: fixed;
-  top: 6.5%;
   right: 31%;
   opacity: 0.7;
   width: 4rem;
   background-color: #fbf5a7;
+  border-radius: 4rem;
+  top: 6.5%;
 }
 #menuBurger .buttonDown {
-  position: fixed;
   top: 10.5%;
-  right: 31%;
-  opacity: 0.7;
-  width: 4rem;
-  background-color: #fbf5a7;
 }
 
 /* Related with the pop ups */
-
 .leaflet-popup-content {
-  /* margin: 13px 24px 13px 20px;
-  line-height: 1.3;
-  font-size: 13px; */
-  font-size: 1.2rem;
-  /* min-height: 1px; */
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 1rem 2.2rem 0.8rem 1.2rem;
 }
 
 /* Relatted with the marker of where is the user */
-
 .leaflet-pane.leaflet-marker-pane .currentUserPosition {
   width: 2rem;
 }
