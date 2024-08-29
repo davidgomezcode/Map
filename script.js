@@ -1,4 +1,7 @@
 "use strict";
+//Variables:
+let lastActivityNumber;
+
 //Selectors:
 const menuBurgerIMG = document.querySelector(".menuBurgerIMG");
 const menuBurgerSpace = document.querySelector("#menuBurgerSpace");
@@ -34,7 +37,12 @@ let mapReal = L.tileLayer(
 //Functions
 //Function - insertion of new activity:
 const createActivity = function () {
-  const html = `<article data-number="1" class="activity">
+  lastActivityNumber = Number(
+    menuBurgerSpaceDivActivities.lastElementChild.dataset.number
+  );
+  const html = `<article data-number="${
+    lastActivityNumber + 1
+  }" class="activity">
     <div class="inputParent">
       <input class="input activityInput" placeholder="Activity" />
     </div>
@@ -110,7 +118,7 @@ navigator.geolocation.getCurrentPosition(function (position) {
   //Event listener to difFerentiate between the clicks over tu whereAmIButtonIMG and over the rest of the map:
   document.addEventListener("click", function (e) {
     if (e.target.classList.contains("whereAmIButtonIMG")) {
-      // if the user clicks the where am i button, then we create a marker with the user coords and locate the viewport on that mark:
+      // if the user clicks the where am i button: create a marker with the user coords and locate the viewport on that mark:
       L.marker(coords, {
         icon: L.icon({
           iconUrl: "https://i.postimg.cc/0N6HHTMr/blueDot.png",
@@ -124,31 +132,35 @@ navigator.geolocation.getCurrentPosition(function (position) {
         )
         .openPopup();
 
-      map.locate({ setView: true }); // we set the view to the user current position
-      if (!menuBurgerSpace.classList.contains("hidden")) {
-        //If the burger menu is open, it closes it:
-        openBurgerMenu();
-      }
-    } else if (e.target.classList.contains("sendButton")) {
-      let i = 0; // while we iterate the menuBurgerSpaceDivActivities, we will iterate the markersArray with the variable i.
-      menuBurgerSpaceDivActivities
-        .querySelectorAll("article")
-        .forEach((article) => {
-          if (article.querySelector(".activityInput")?.value !== undefined) {
-            let minutes = article.querySelector(".timeInput")?.value;
-            // We take the text of every element in the burger menu and put it in the correspondent marker popup (using the setPopupContent):
-            markersArray[i].setPopupContent(
-              `<strong style="font-size: 1.2rem;">${
-                article.querySelector(".activityInput")?.value
-              }</strong><br>${minutes} min`
-            );
-            if (article.querySelector(".activityInput")?.value == "") {
-              //if the user erase the content, it returns to "Activity".
-              markersArray[i].setPopupContent("Activity");
-            }
-            i = i + 1;
-          }
-        });
+      // map.locate({ setView: true }); // we set the view to the user current position
+
+      map.setView(coords, 16, { animate: true, pan: { duration: 1 } });
+      // if (!menuBurgerSpace.classList.contains("hidden")) {
+      //   //If the burger menu is open, it closes it:
+      //   openBurgerMenu();
+      // }
+      // } else if (e.target.classList.contains("sendButton")) {
+      // // while we iterate the menuBurgerSpaceDivActivities, we will iterate the markersArray with the variable i.
+      // let i = 0;
+      // menuBurgerSpaceDivActivities
+      //   .querySelectorAll("article")
+      //   .forEach((article) => {
+      //     if (article.querySelector(".activityInput")?.value !== undefined) {
+      //       //We create the variable minutes that reads the numbers the user includes in that input:
+      //       let minutes = article.querySelector(".timeInput")?.value;
+      //       // We take the text of every element in the burger menu and put it in the correspondent marker popup (using the setPopupContent):
+      //       markersArray[i].setPopupContent(
+      //         `<strong style="font-size: 1.2rem;">${
+      //           article.querySelector(".activityInput")?.value
+      //         }</strong><br>${minutes} min`
+      //       );
+      //       if (article.querySelector(".activityInput")?.value == "") {
+      //         //if the user erase the content, it returns to "Activity".
+      //         markersArray[i].setPopupContent("Activity");
+      //       }
+      //       i = i + 1; //We increase the value of the variable i to iterate the markersArray in parallel to the iteration of the activities.
+      //     }
+      //   });
     } else if (
       // the click is on the map and not over any other element:
       e.target.id === "map"
@@ -181,6 +193,29 @@ navigator.geolocation.getCurrentPosition(function (position) {
       behavior: "smooth", // Optional: smooth scrolling
     });
   });
+  sendButton.addEventListener("click", function () {
+    // while we iterate the menuBurgerSpaceDivActivities, we will iterate the markersArray with the variable i.
+    let i = 0;
+    menuBurgerSpaceDivActivities
+      .querySelectorAll("article")
+      .forEach((article) => {
+        if (article.querySelector(".activityInput")?.value !== undefined) {
+          //We create the variable minutes that reads the numbers the user includes in that input:
+          let minutes = article.querySelector(".timeInput")?.value;
+          // We take the text of every element in the burger menu and put it in the correspondent marker popup (using the setPopupContent):
+          markersArray[i].setPopupContent(
+            `<strong style="font-size: 1.2rem;">${
+              article.querySelector(".activityInput")?.value
+            }</strong><br>${minutes} min`
+          );
+          if (article.querySelector(".activityInput")?.value == "") {
+            //if the user erase the content, it returns to "Activity".
+            markersArray[i].setPopupContent("Activity");
+          }
+          i = i + 1; //We increase the value of the variable i to iterate the markersArray in parallel to the iteration of the activities.
+        }
+      });
+  });
   //Change map tile:
   changeMapStyleIMG.addEventListener("click", function () {
     if (
@@ -193,5 +228,11 @@ navigator.geolocation.getCurrentPosition(function (position) {
       map.removeLayer(mapReal);
       addToMap(mapDrawn);
     }
+  });
+  menuBurgerSpaceDivActivities.addEventListener("click", function (e) {
+    let { lat, lng } =
+      markersArray[e.target.closest("article").dataset.number - 1]._latlng;
+
+    map.setView([lat, lng], 16, { animate: true, pan: { duration: 1 } });
   });
 });
