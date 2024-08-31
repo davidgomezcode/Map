@@ -112,7 +112,7 @@ html {
   top: -1rem;
   width: 1rem; /* Small width for the clickable area */
   height: 1rem; /* Small height for the clickable area */
-  background-color: black; /* Dot color */
+  background-color: #f10404; /* Dot color */
   border-radius: 50%; /* Make it a circle */
   transform: scale(1.5); /* Scale up to make it visible */
   font-size: 0; /* Hide the dot inside */
@@ -191,4 +191,10 @@ html {
 /* Relatted with the marker of where is the user */
 .leaflet-pane.leaflet-marker-pane .currentUserPosition {
   width: 2rem;
+}
+/* Related to the popup */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #000000;
+  color: white;
 }

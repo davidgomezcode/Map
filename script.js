@@ -50,6 +50,9 @@ const createActivity = function () {
         <option value="" disabled selected>Select Activity</option>
         <option value="Work">Work</option>
         <option value="Study">Study</option>
+        <option value="Family">Family</option>
+        <option value="Social">Social</option>
+        <option value="Couple">Couple</option>
         <option value="Exercise">Exercise</option>
        </select>
     </div>
